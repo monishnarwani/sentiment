@@ -11,7 +11,7 @@ sys.setdefaultencoding('utf8')
 def findReviewsByBrand(brand, dataf):
 	return dataf.loc[dataf['BrandName'].isin([brand])]
 
-data = pd.read_csv('amazon_reviews.csv', encoding='utf-8')
+data = pd.read_csv('amazon10.csv', encoding='utf-8')
 df = data
 df.columns = ['ProductName', 'BrandName', 'Price', 'Rating', 'Reviews', 'ReviewVotes']
 df['Price'] = df['Price'].fillna(0)
@@ -37,11 +37,11 @@ for i in range(0,len_reviews):
 		numSent = numSent + 1
 		score = sentence.sentiment.polarity
 		totalSentScore = totalSentScore + score
-	data['SentiScore'][i]=totalSentScore
-	data['SentiType'][i]='Positive' if totalSentScore>0 else ('Negative' if totalSentScore <0 else 'Neutral') 
+	data['SentiScore']=totalSentScore
+	data['SentiType']='Positive' if totalSentScore>0 else ('Negative' if totalSentScore <0 else 'Neutral') 
 	print list_reviews[i]
-	print data['SentiScore'][i]
-	print data['SentiType'][i]
+	print data['SentiScore']
+	print data['SentiType']
 data.SentiType.value_counts().plot(kind='bar',title="sentiment analysis")
 plt.show()
 
