@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <title>list app</title>
+    <style src="https://unpkg.com/vue-multiselect@2.0.0-beta.14/dist/vue-multiselect.min.css"></style>
+  </head>
+
+  <body>
+  <div class="wrapper" id="root">
+  		
+  	<form action="/signup" method="post">
+  	  <input type="text" name="email"></input>
+  	  <input type="submit" value="Signup"></input>
+  	</form>
+
+
+  	<!-- <div v-if="show">
+  		<h1 v-text="jsondata.head"></h1>
+  		<ul v-cloak v-for="list in jsondata.lists">
+  			<li v-text="list"></li>
+  		</ul>
+  	</div> -->
+  	<multiselect v-model="value" :options="options" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"></multiselect>
+  </div>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/vue.multiselect/1.1.4/vue-multiselect.min.js"></script>
+  <script>
+  	var app = new Vue({
+  		el:"#root",
+  		created (){
+  			var that = this
+  			axios.get('/api/user-data')
+  			  .then(function (response) {
+  			    console.log(response);
+  			    that.jsondata = response.data
+  			    that.show = true
+  			    console.log('jsondata',that.jsondata)
+  			  })
+  			  .catch(function (error) {
+  			    console.log(error);
+  			  });
+  		},
+  		components: {
+  			multiselect: VueMultiselect.Multiselect
+  		},
+  		data: {
+  			jsondata: null,
+  			show: false,
+  			value: '',
+	      	options: ['Select option', 'options', 'selected', 'mulitple', 'label', 'searchable', 'clearOnSelect', 'hideSelected', 'maxHeight', 'allowEmpty', 'showLabels', 'onChange', 'touched']
+  		}
+  	})
+  </script>
+
+
+  
+  </body>
+</html>
