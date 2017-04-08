@@ -173,7 +173,34 @@
                   </div>
                 </div>
               </div>
-			  <div class="col-md-6">
+			  
+			  <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Guage</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div id="echart_gauge_rating" style="height:370px;"></div>
+                  </div>
+                </div>
+              </div>
+			  <!--<div class="col-md-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Top Profiles <small>Sessions</small></h2>
@@ -247,7 +274,7 @@
                     </article>
                   </div>
                 </div>
-              </div>
+              </div>-->
 			  
 		</div>
 		</div>
@@ -3574,7 +3601,126 @@ if (typeof NProgress != 'undefined') {
 			  });
 
 			} 
+			
+
+if ($('#echart_gauge_rating').length ){ 
 			  
+			  var echartGauge = echarts.init(document.getElementById('echart_gauge_rating'), theme);
+
+			  echartGauge.setOption({
+				tooltip: {
+				  formatter: "{a} <br/>{b} : {c}%"
+				},
+				toolbox: {
+				  show: true,
+				  feature: {
+					restore: {
+					  show: true,
+					  title: "Restore"
+					},
+					saveAsImage: {
+					  show: true,
+					  title: "Save Image"
+					}
+				  }
+				},
+				series: [{
+				  name: 'Performance',
+				  type: 'gauge',
+				  center: ['50%', '50%'],
+				  startAngle: 140,
+				  endAngle: -140,
+				  min: 0,
+				  max: 5,
+				  precision: 0,
+				  splitNumber: 10,
+				  axisLine: {
+					show: true,
+					lineStyle: {
+					  color: [
+						[0.3, '#EF5350'],
+						
+						[0.7, '#FFB74D'],
+						[1, 'lightgreen']
+					  ],
+					  width: 30
+					}
+				  },
+				  axisTick: {
+					show: true,
+					splitNumber: 5,
+					length: 8,
+					lineStyle: {
+					  color: '#eee',
+					  width: 1,
+					  type: 'solid'
+					}
+				  },
+				  axisLabel: {
+					show: true,
+					formatter: function(v) {
+					  switch (v + '') {
+						case '0':
+						  return 'poor';
+						case '30':
+						  return 'Fair';
+						case '60':
+						  return 'Good';
+						case '100':
+						  return 'Excellent';
+						default:
+						  return '';
+					  }
+					},
+					textStyle: {
+					  color: '#333'
+					}
+				  },
+				  splitLine: {
+					show: true,
+					length: 30,
+					lineStyle: {
+					  color: '#eee',
+					  width: 2,
+					  type: 'solid'
+					}
+				  },
+				  pointer: {
+					length: '80%',
+					width: 8,
+					color: 'auto'
+				  },
+				  title: {
+					show: true,
+					offsetCenter: ['-65%', -10],
+					textStyle: {
+					  color: '#333',
+					  fontSize: 15
+					}
+				  },
+				  detail: {
+					show: true,
+					backgroundColor: 'rgba(0,0,0,0)',
+					borderWidth: 0,
+					borderColor: '#ccc',
+					width: 100,
+					height: 40,
+					offsetCenter: ['-60%', 10],
+					formatter: '{value}%',
+					textStyle: {
+					  color: 'auto',
+					  fontSize: 30
+					}
+				  },
+				  data: [{
+					value: ({{total_rating}}).toFixed(2),
+					name: 'Performance'
+				  }]
+				}]
+			  });
+
+			} 
+						
 			   //echart Line
 			  
 			if ($('#echart_line').length ){ 
