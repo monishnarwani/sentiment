@@ -1,11 +1,25 @@
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import numpy as np
-
-
+import nltk
+import string
+from nltk.corpus import stopwords
+from wordcloud import WordCloud
+from HTMLParser import HTMLParser
 def load_data():
 	data=pd.read_csv("../amazon_data_pandas.csv",encoding='utf-8')
 	data.columns = ['index','ProductName','BrandName','Price','Rating','Reviews','ReviewVotes','sentiment_compound_polarity','sentiment_neutral','sentiment_negative','sentiment_pos','sentiment_type']	
 	return data
+
+def load_brands():
+	data = load_data()
+	unique_brand=list(set(data['BrandName']))
+	ubrand=pd.DataFrame(unique_brand) 
+	ubrand.columns = ['name']
+	json_brand = ubrand.reset_index().to_json(orient='records')
+	h = HTMLParser()
+	json_brand = h.unescape(json_brand)
+	return json_brand
+
 
 def search_brand(brandname):
 	data = load_data()
@@ -24,4 +38,6 @@ def search_brand(brandname):
 	rating_total = rating_total / (num*1.0)
 	return val,total,rating_total
 	
-search_brand('Samsung')
+
+
+# search_brand('Samsung')
