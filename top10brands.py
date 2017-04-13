@@ -9,7 +9,7 @@ pivot = pd.pivot_table(data,
             index =  ['BrandName'],
                        columns= [],
                        aggfunc=[np.sum, np.mean, np.count_nonzero, np.std], 
-                       maprgins=True, fill_value=0).sort_values(by=('count_nonzero', 'sentiment_compound_polarity'), ascending=False).fillna('')
+                       margins=True, fill_value=0).sort_values(by=('count_nonzero', 'sentiment_compound_polarity'), ascending=False).fillna('')
 top_10_brands = pivot.reindex().head(n=11)
 
 top_10_brands.to_csv('top10brands.csv',sep=',',encoding='utf-8')

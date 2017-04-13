@@ -57,7 +57,16 @@
                     </ul>
                   </li>
                   <li>
-                    <a><i class="fa fa-bar-chart-o"></i> Product Search <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-bar-chart-o"></i> Brand Search <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="#sentiment_score">Sentiment Score</a></li>
+                      <li><a href="#sentiment_score">Top Five Reviews</a></li>
+                      <li><a href="#featurewords">Features</a></li>
+                      <li><a href="#fanalyse">Feature Analysis</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="templates/Analysis_products.html"><i class="fa fa-bar-chart-o"></i> Product Search <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#sentiment_score">Sentiment Score</a></li>
                       <li><a href="#sentiment_score">Top Five Reviews</a></li>
@@ -67,16 +76,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="menu_section">
-                <h3><i class="fa fa-bar-chart-o"></i>Product Analysis</h3>
-                <ul class="nav side-menu">
-                  <li><a href="#sentiment_score">Sentiment Score</a></li>
-                  <li><a href="#sentiment_score">Top Five Reviews</a></li>
-                  <li><a href="#featurewords">Features</a></li>
-                  <li><a href="#fanalyse">Feature Analysis</a></li>
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i>Recommendation <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul>
-              </div>
+              
             </div>
             <!-- /sidebar menu -->
             <!-- /menu footer buttons -->
@@ -106,7 +106,7 @@
                   <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                 </div>
                 <div class="row">
-                  <div class="col-md-6 col-sm-6 col-xs-12 form-group pull-left top_search">
+                  <div class="col-md-9 col-sm-9 col-xs-12 form-group pull-left top_search">
                     <form action="/searchbrand" method="get">
                       <div class="input-group">
                         <input id="demo1" type="text" class="form-control" placeholder="Start Searching for products..." name="brand" autocomplete="off">
@@ -4104,22 +4104,10 @@
           };
       
         } 
-        console.log("hello");
-        brands = decodeHtml("{{brand_names}}")
-        console.log(brands)
-          //typeahead
-           $('#demo1').typeahead({
-            // var brands = ({{brand_names}}).replace(/\"/g,"");
-            
-            
-            source: brands
-        });
-      
-        function decodeHtml(html) {
-            var txt = document.createElement("textarea");
-            txt.innerHTML = html;
-            return txt.value;
-        }
+        $.get("static/brands.json", function(data){
+
+         $("#demo1").typeahead({ source:data });
+        },'json');
            //echart Mini Pie
           
         if ($('#echart_mini_pie').length ){ 
