@@ -1,6 +1,8 @@
 from flask import Flask, render_template,json,jsonify,redirect,request
 from senti_search import search_brand, load_brands, load_products, search_products
 from create_wordcloud import create_one_wordcloud
+import pandas as pd
+import json
 app = Flask(__name__)
 brand_names = ''
 @app.route('/')
@@ -71,7 +73,20 @@ def product_search():
 
 @app.route('/table')
 def display_table():
-	return render_template('ecomm/production/tables.html')
+	data = pd.read_csv('../amazon_reviews_pandas.csv')
+	data.columns = ['index','ProductName','BrandName','Price','Rating','Reviews','ReviewVotes','SentimentCompoundPolarity','SentimentNeutral','SentimentNegative','SentimentPositive','SentimentType']
+	data = data.to_json(orient='records')
+	data = json.loads(data)
+	return render_template('ecomm/production/tables_dynamic.html',data = data)
+
+@app.route('/temp')
+def displaytemp():
+	data = pd.read_csv('../amazon_reviews_pandas.csv')
+	data.columns = ['index','ProductName','BrandName','Price','Rating','Reviews','ReviewVotes','SentimentCompoundPolarity','SentimentNeutral','SentimentNegative','SentimentPositive','SentimentType']
+	data = data.to_json(orient='records')
+	data = json.loads(data)
+	return render_template('table.html',data=data)
+
 
 if __name__ == '__main__':
 	app.run()

@@ -2,5 +2,3 @@ nbproject
 npm-debug.log
 node_modules
 .sass-cache
-amazon_data_pandas.csv
-amazon_reviews_pandas.csv
