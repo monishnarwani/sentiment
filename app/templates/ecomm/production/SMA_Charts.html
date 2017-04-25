@@ -22,7 +22,7 @@
         <div class="col-md-3 left_col menu_fixed" >
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Sentiment Analysis!</span></a>
             </div>
             <div class="clearfix"></div>
             <!-- menu profile quick info -->
@@ -42,18 +42,17 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li>
-                    <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
+                    <a href="brands"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <!-- <ul class="nav child_menu">
                       <li><a href="index.html">Dashboard</a></li>
                       <li><a href="index2.html">Dashboard2</a></li>
                       <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
+                    </ul> -->
                   </li>
                   <li>
-                    <a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                    <a href="table"><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                      <li><a href="#">Table Dynamic</a></li>
                     </ul>
                   </li>
                   <li>
@@ -131,7 +130,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Guage</h2>
+                    <h2>Sentiment Score of {{brand}}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -157,7 +156,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Guage</h2>
+                    <h2>Rating Score of {{brand}}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -292,7 +291,7 @@
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Bar Graph</h2>
+                    <h2>Bar Graph of Reviews Sentiment</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -339,8 +338,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <div >
-                      <img src="static/images/{{brand}}.png" alt="WordCloud" height="50%" width="100%">
+                    <div style="height: 100% width:100%">
+                      <img src="static/images/{{brand}}.png" alt="WordCloud" style="max-width: 100%; max-height: 50%" >
                     </div>
                     <div class="caption">
                       Wordcloud of {{brand}}
@@ -376,38 +375,12 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h2>Line Graph</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <div id="echart_line" style="height:350px;"></div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- /page content -->
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            ProductAnalyst <a href="#">Social media</a>
+            
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -3808,51 +3781,51 @@
            //echart Bar Horizontal
           
         if ($('#echart_bar_horizontal').length ){ 
-          
-          var echartBar = echarts.init(document.getElementById('echart_bar_horizontal'), theme);
-      
-          echartBar.setOption({
-          title: {
-            text: 'Bar Graph',
-            subtext: 'Graph subtitle'
-          },
-          tooltip: {
-            trigger: 'axis'
-          },
-          legend: {
-            x: 100,
-            data: ['2015', '2016']
-          },
-          toolbox: {
-            show: true,
-            feature: {
-            saveAsImage: {
-              show: true,
-              title: "Save Image"
-            }
-            }
-          },
-          calculable: true,
-          xAxis: [{
-            type: 'value',
-            boundaryGap: [0, 0.01]
-          }],
-          yAxis: [{
-            type: 'category',
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-          }],
-          series: [{
-            name: '2015',
-            type: 'bar',
-            data: [18203, 23489, 29034, 104970, 131744, 630230]
-          }, {
-            name: '2016',
-            type: 'bar',
-            data: [19325, 23438, 31000, 121594, 134141, 681807]
-          }]
-          });
-      
-        } 
+                  
+                  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal'), theme);
+              
+                  echartBar.setOption({
+                  title: {
+                    text: 'Feature Graph',
+                    subtext: 'Comparison of Features'
+                  },
+                  tooltip: {
+                    trigger: 'axis'
+                  },
+                  legend: {
+                    x: 100,
+                    data: ['Positive', 'Negative']
+                  },
+                  toolbox: {
+                    show: true,
+                    feature: {
+                    saveAsImage: {
+                      show: true,
+                      title: "Save Image"
+                    }
+                    }
+                  },
+                  calculable: true,
+                  xAxis: [{
+                    type: 'value',
+                    boundaryGap: [0, 0.01]
+                  }],
+                  yAxis: [{
+                    type: 'category',
+                    data: ['Camera', 'Case', 'FingerSensor', 'BatteryBackup','SoundQuality', 'Processor']
+                  }],
+                  series: [{
+                    name: 'Positive',
+                    type: 'bar',
+                    data: [10, 15, 10, 5, 6, 7]
+                  }, {
+                    name: 'Negative',
+                    type: 'bar',
+                    data: [2, 5, 5, 10, 15, 6]
+                  }]
+                  });
+              
+                } 
           
            //echart Pie Collapse
           
@@ -3936,7 +3909,7 @@
           legend: {
           orient:'vertical',
             x: 'left',
-            data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine','SEO']
+            data: ['Camera', 'Case', 'FingerSensor', 'BatteryBackup','SoundQuality', 'Processor']
           },
           toolbox: {
             show: true,
@@ -3989,22 +3962,22 @@
             },
             data: [{
             value: 14,
-            name: 'Direct Access'
+            name: 'Camera'
             }, {
             value: 6,
-            name: 'E-mail Marketing'
+            name: 'Case'
             }, {
             value: 20,
-            name: 'Union Ad'
+            name: 'FingerSensor'
             }, {
             value: 2,
-            name: 'Video Ads'
+            name: 'BatteryBackup'
             }, {
             value: 2,
-            name: 'Search Engine'
+            name: 'SoundQuality'
             },{
-            value: 0,
-            name: 'SEO'
+            value: 3,
+            name: 'Processor'
             }]
           }]
           });

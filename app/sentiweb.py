@@ -1,6 +1,6 @@
 from flask import Flask, render_template,json,jsonify,redirect,request
 from senti_search import search_brand, load_brands, load_products, search_products
-from create_wordcloud import create_one_wordcloud
+from create_wordcloud import create_one_wordcloud,  create_one_wordcloud_product
 import pandas as pd
 import json
 app = Flask(__name__)
@@ -40,7 +40,7 @@ def signup():
 	print("The email address is '" + email + "'")
 	return redirect('/')
 
-@app.route('/analysis')
+@app.route('/brands')
 def analysis_show():
 	values=[0]*3
 	total = 0
@@ -67,7 +67,7 @@ def products_show():
 def product_search():
 	product = request.args.get('product')
 	values,total,rating_total = search_products(product)
-	# create_one_wordcloud(product)
+	create_one_wordcloud_product(product)
 	return render_template('ecomm/production/Analysis_products.html',bar_values=values,total=total,total_rating=rating_total,brand=product)
 
 
