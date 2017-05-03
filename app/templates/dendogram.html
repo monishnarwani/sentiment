@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="">
+  <title>Dendogram</title>
+  <!-- Bootstrap -->
+  <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="static/vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- Custom Theme Style -->
+  <link href="static/build/css/custom.css" rel="stylesheet">
+<style>
+
+.node circle {
+  fill: #999;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.node--internal circle {
+  fill: #555;
+}
+
+.node--internal text {
+  text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #555;
+  stroke-opacity: 0.4;
+  stroke-width: 1.5px;
+}
+
+</style>
+<!-- <svg id="chart" width="960" height="1500"
+  viewBox="0 0 960 500"
+  preserveAspectRatio="xMidYMid meet"></svg> -->
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.8.0/d3.min.js"></script>
+<script src="static/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="static/build/js/bootstrap-typeahead.min.js"></script>
+<script src="static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="static/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="static/vendors/nprogress/nprogress.js"></script>
+<!-- ECharts -->
+<script src="static/vendors/echarts/dist/echarts.min.js"></script>
+<script src="static/vendors/echarts/map/js/world.js"></script>
+<script>
+$.get("static/products.json", function(data){
+
+  $("#demo1").typeahead({ source:data });
+},'json');
+
+function bodyLoading() {
+  var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height"),
+      g = svg.append("g").attr("transform", "translate(40,0)");
+
+  var tree = d3.cluster()
+      .size([height, width - 160]);
+
+  var stratify = d3.stratify()
+      .parentId(function(d) { return d.id.substring(0, d.id.lastIndexOf(".")); });
+
+  d3.csv("static/{{product}}.csv", function(error, data) {
+    if (error) throw error;
+
+    var root = stratify(data)
+        .sort(function(a, b) { return (a.height - b.height) || a.id.localeCompare(b.id); });
+
+    tree(root);
+
+    var link = g.selectAll(".link")
+        .data(root.descendants().slice(1))
+      .enter().append("path")
+        .attr("class", "link")
+        .attr("d", function(d) {
+          return "M" + d.y + "," + d.x
+              + "C" + (d.parent.y + 100) + "," + d.x
+              + " " + (d.parent.y + 100) + "," + d.parent.x
+              + " " + d.parent.y + "," + d.parent.x;
+        });
+
+    var node = g.selectAll(".node")
+        .data(root.descendants())
+      .enter().append("g")
+        .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
+        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+
+    node.append("circle")
+        .attr("r", 2.5);
+
+    node.append("text")
+        .attr("dy", 3)
+        .attr("x", function(d) { return d.children ? -8 : 8; })
+        .style("text-anchor", function(d) { return d.children ? "end" : "start"; })
+        .text(function(d) { return d.id.substring(d.id.lastIndexOf(".") + 1); });
+  });
+
+
+  
+}
+</script>
+</head>
+<body onload="bodyLoading();" class="nav-md">
+  <div id="container">
+  <div class="container body">
+    <div class="main_container" >
+      <div class="col-md-3 left_col menu_fixed" >
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Sentiment Analysis!</span></a>
+          </div>
+          <div class="clearfix"></div>
+          <!-- menu profile quick info -->
+          <div class="profile clearfix">
+            <div class="profile_pic">
+              <img src="static/images/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+              <span>Welcome,</span>
+            </div>
+          </div>
+          <!-- /menu profile quick info -->
+          <br />
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" >
+            <div class="menu_section">
+              <h3>General</h3>
+              <ul class="nav side-menu">
+                <li>
+                  <a href="brands"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <!-- <ul class="nav child_menu">
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="index2.html">Dashboard2</a></li>
+                    <li><a href="index3.html">Dashboard3</a></li>
+                  </ul> -->
+                </li>
+                <li>
+                  <a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="table">Table Dynamic</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="brands"><i class="fa fa-bar-chart-o"></i> Brand Search <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="#sentiment_score">Sentiment Score</a></li>
+                    <li><a href="#sentiment_score">Top Five Reviews</a></li>
+                    <li><a href="#featurewords">Features</a></li>
+                    <li><a href="#fanalyse">Feature Analysis</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="products"><i class="fa fa-bar-chart-o"></i> Product Search <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="#sentiment_score">Sentiment Score</a></li>
+                    <li><a href="#sentiment_score">Top Five Reviews</a></li>
+                    <li><a href="#featurewords">Features</a></li>
+                    <li><a href="#fanalyse">Feature Analysis</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+          <!-- /sidebar menu -->
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+      <!-- top navigation -->
+      <div class="top_nav navbar navbar-fixed-top">
+        <div class="container">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <div class="row">
+                <div class="col-md-9 col-sm-9 col-xs-12 form-group pull-left top_search">
+                  <form action="/extractword" method="get">
+                    <div class="input-group">
+                      <input id="demo1" type="text" class="form-control" placeholder="Start Searching for products..." name="product" autocomplete="off">
+                      <input class="form-control" type="submit" style="display: none" />
+                      <span class="input-group-btn">
+                      <button class="btn btn-default " type="submit" style="color: #ffffff; background-color: #1ABB9C;border-color: #1ABB9C"><span class="glyphicon glyphicon-search"></span></button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <div class="right_col" role="main">
+    <div class="clearfix"></div>
+    <div class="container-fluid" id="sentiment_score">
+      <div class="row" >
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <svg id="chart" width="960" height="2000" viewBox="0 0 960 2000" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>
+</html>

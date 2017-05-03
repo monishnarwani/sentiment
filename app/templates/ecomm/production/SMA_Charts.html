@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ECharts Chart Bootstrap Examples | Gentelella Alela! by Colorlib</title>
+    <title>Sentiment Analysis-Brands</title>
     <!-- Bootstrap -->
     <link href="static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -27,9 +27,7 @@
             <div class="clearfix"></div>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="static/images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
+              
               <div class="profile_info">
                 <span>Welcome,</span>
               </div>
@@ -50,18 +48,17 @@
                     </ul> -->
                   </li>
                   <li>
-                    <a href="table"><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                    <a href="table"><i class="fa fa-table"></i> Top Brands <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Table Dynamic</a></li>
+                      <li><a href="#">Top 10 Brands</a></li>
                     </ul>
                   </li>
                   <li>
                     <a><i class="fa fa-bar-chart-o"></i> Brand Search <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="#sentiment_score">Sentiment Score</a></li>
-                      <li><a href="#sentiment_score">Top Five Reviews</a></li>
-                      <li><a href="#featurewords">Features</a></li>
-                      <li><a href="#fanalyse">Feature Analysis</a></li>
+                      <li><a href="#fanalyse">Sentiment Comparison</a></li>
+                      <li><a href="#wordcloud">Feature Cloud</a></li>
                     </ul>
                   </li>
                   <li>
@@ -69,8 +66,8 @@
                     <ul class="nav child_menu">
                       <li><a href="#sentiment_score">Sentiment Score</a></li>
                       <li><a href="#sentiment_score">Top Five Reviews</a></li>
-                      <li><a href="#featurewords">Features</a></li>
-                      <li><a href="#fanalyse">Feature Analysis</a></li>
+                      <li><a href="#fanalyse">Features</a></li>
+                      <li><a href="#wordcloud">Feature Analysis</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -256,36 +253,7 @@
                 </div>-->
             </div>
           </div>
-          <div class="container-fluid" id="featurewords">
-            <div class="row" >
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Donut Graph</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <div id="echart_donut" style="height:350px;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
           <div class="container-fluid" id="fanalyse">
             <div class="row" >
               <div class="col-md-6 col-sm-6 col-xs-6">
@@ -316,7 +284,7 @@
               </div>
             </div>
             <div class="row" >
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-12 col-sm-12 col-xs-12" id="wordcloud">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>WordCloud</h2>
@@ -349,38 +317,12 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h2>Horizontal Bar</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a>
-                      </li>
-                      <li><a href="#">Settings 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <div id="echart_bar_horizontal" style="height:370px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+          
         <!-- /page content -->
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            
+            Sentiment Analysis -- By VESIT
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -3452,7 +3394,7 @@
       
           echartGauge.setOption({
           tooltip: {
-            formatter: "{a} <br/>{b} : {c}%"
+            formatter: "{a} <br/>{b} : {c}"
           },
           toolbox: {
             show: true,
@@ -3549,7 +3491,7 @@
             width: 100,
             height: 40,
             offsetCenter: ['-60%', 10],
-            formatter: '{value}%',
+            formatter: '{value}',
             textStyle: {
               color: 'auto',
               fontSize: 30
@@ -3571,7 +3513,7 @@
       
           echartGauge.setOption({
           tooltip: {
-            formatter: "{a} <br/>{b} : {c}%"
+            formatter: "{a} <br/>{b} : {c}"
           },
           toolbox: {
             show: true,
@@ -3668,7 +3610,7 @@
             width: 100,
             height: 40,
             offsetCenter: ['-60%', 10],
-            formatter: '{value}%',
+            formatter: '{value}',
             textStyle: {
               color: 'auto',
               fontSize: 30

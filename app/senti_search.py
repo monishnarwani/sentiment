@@ -24,9 +24,18 @@ def search_brand(brandname):
 	data_brand = data.loc[data['BrandName'].isin([brandname])]
 	json_val = data_brand.sentiment_type.value_counts()
 	val = range(3)
-	val[0] = json_val.POSITIVE
-	val[1] = json_val.NEGATIVE
-	val[2] = json_val.NEUTRAL
+	try:
+		val[0] = json_val.POSITIVE
+	except AttributeError:
+		value_countsal[0] = 0
+	try:
+		val[1] = json_val.NEGATIVE
+	except AttributeError:
+		val[1] = 0
+	try:
+		val[2] = json_val.NEUTRAL
+	except AttributeError:
+		val[2] = 0
 	data_compound = data_brand['sentiment_compound_polarity']
 	sum = data_compound.sum()
 	num = len(data_compound.index)

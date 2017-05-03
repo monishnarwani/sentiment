@@ -1,7 +1,4 @@
-None,sum,mean,count_nonzero,std
-None,sentiment_compound_polarity,sentiment_compound_polarity,sentiment_compound_polarity,sentiment_compound_polarity
-BrandName,,,,
-All,127272.2743,0.365071364482,303869.0,0.511397148996
+BrandName,sum,mean,count_nonzero,std
 Samsung,25251.7473,0.38418554193,57272.0,0.491989823041
 BLU,23175.4543,0.366433518325,55001.0,0.505285427928
 Apple,21110.6151,0.362856272882,50505.0,0.48879919562

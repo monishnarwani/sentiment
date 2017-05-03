@@ -1,0 +1,15 @@
+id,value
+POSH,
+POSH.screen,
+POSH.battery,
+POSH.price,
+POSH.camera,
+POSH.quality,
+POSH.software,
+POSH.wifi,
+POSH.memory,
+POSH.video,
+POSH.power,
+POSH.size,
+POSH.battery.good,1
+POSH.screen.nice,1
