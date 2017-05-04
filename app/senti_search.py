@@ -27,7 +27,7 @@ def search_brand(brandname):
 	try:
 		val[0] = json_val.POSITIVE
 	except AttributeError:
-		value_countsal[0] = 0
+		val[0] = 0
 	try:
 		val[1] = json_val.NEGATIVE
 	except AttributeError:
@@ -63,7 +63,7 @@ def search_products(product):
 	try:
 		val[0] = json_val.POSITIVE
 	except AttributeError:
-		value_countsal[0] = 0
+		val[0] = 0
 	try:
 		val[1] = json_val.NEGATIVE
 	except AttributeError:
