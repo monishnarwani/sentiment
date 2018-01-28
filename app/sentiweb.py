@@ -9,7 +9,7 @@ app = Flask(__name__)
 brand_names = ''
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return redirect('/brands')
 
 @app.route('/brands')
 def analysis_show():
@@ -70,4 +70,4 @@ def extract_func():
 	return render_template('dendogram.html',product = product1)
 
 if __name__ == '__main__':
-	app.run()
+	app.run(host='0.0.0.0', port=80)
